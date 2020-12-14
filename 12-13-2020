@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Blackjack2
+{
+  public enum Suit
+  {
+    Hearts = 1 ,
+    Spades = 2,
+    Clubs = 3,
+    Diamonds = 4
+  }
+
+  public enum Card
+  {     
+    //Values must be +1'd in order to align with enum value system   
+    Ace = 0, 
+    Two = 1, 
+    Three = 2, 
+    Four = 3, 
+    Five = 4, 
+    Six = 5, 
+    Seven = 6, 
+    Eight = 7, 
+    Nine = 8, 
+    Ten = 9, 
+    Jack = 10, 
+    Queen = 11, 
+    King = 12
+  }
+   
+
+  public class Deck
+  {
+    //string test = "Test"; //Used to test Methods
+    string sOutputCR;
+
+    List<string> hand = new List<string>();
+
+    public Suit Suit {get;}
+    public Card Card {get;}
+
+///////////////////////////////////////////////
+    
+    // public static string cardRetrieval()
+    // {
+    // var rand = new Random();
+    // Blackjack2.Deck deck = new Deck();
+
+    // Blackjack2.Card outputCR =  ((Card) (rand.Next(Enum.GetNames(typeof(Card)).Length))) ;
+
+    // //deck.outputCVR = ((int) (Card) (outputCR)) + 1;
+    // return($"{outputCR}");
+    // }
+
+    public static void Main(string[] args)
+    {
+      Blackjack2.Deck deck = new Deck();
+      int sequence = 0;
+     // int outputCVR;
+     
+      do
+      {
+          string Answer = Console.ReadLine();
+         
+          if (Answer == "S" || Answer == "H")
+          {
+            Random rand = new Random();
+
+            Blackjack2.Card outputCR =  
+            ((Card) (rand.Next(Enum.GetNames(typeof(Card)).Length))) ;
+
+            int outputCVR = ((int) (Card) (outputCR)) + 1;
+
+            string sOutputCR = ($"{outputCR}");  
+            sequence += 1;
+
+            deck.hand.Add(sOutputCR);
+            deck.hand.ForEach(Console.WriteLine);
+
+          }
+          
+          else 
+          {
+            Console.WriteLine("Please say S for Stay or H for Hit");
+          }
+      }
+      while(sequence <= 4);
+
+    }
+  }
+}
