@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BlackjackMain
+{
+  public enum Suit
+  {
+    Hearts = 1 ,
+    Spades = 2,
+    Clubs = 3,
+    Diamonds = 4
+  }
+
+  public enum Card
+  {
+    Two = 0,
+    Three = 1,
+    Four = 2,
+    Five = 3,
+    Six = 4,
+    Seven = 5,
+    Eight = 6,
+    Nine = 7,
+    Ten = 8,
+    Jack = 9,
+    Queen = 10,
+    King = 11,
+    Ace = 12
+  }
+
+
+  public class Deck
+  {
+    List<string> hand = new List<string>();
+
+    public Suit Suit {get;}
+    public Card Card {get;}
+
+///////////////////////////////////////////////
+    public static void Main(string[] args)
+    {
+      BlackjackMain.Deck deck = new Deck();
+      int sequence = 0;
+      int sum = 0;
+
+      do
+      {
+        string Answer = Console.ReadLine();
+
+        if (Answer == "H")
+        {
+          sequence += 1;
+
+          Random rand = new Random();
+
+          BlackjackMain.Card outputCR = ((Card) (rand.Next(Enum.GetNames(typeof (Card)).Length)));
+
+          int outputCVR = ((int)(Card)(outputCR) + 2);
+
+          string stringOutputCR = ($"{outputCR}");
+
+          //Required to set the values of the Royal   Cards all to 10
+          if (outputCVR > 10 && outputCR != BlackjackMain.Card.Ace)
+          {
+            do
+            {
+              outputCVR = outputCVR - 1;
+            }
+            while(outputCVR > 10);
+          }
+
+          else if(outputCR == BlackjackMain.Card.Ace)
+          {
+            outputCVR = 11;
+          }
+
+          deck.hand.Add(stringOutputCR);
+
+          sum = sum + outputCVR;
+
+          deck.hand.ForEach(Console.WriteLine);
+
+          Console.WriteLine(sum);
+
+          if(sum > 21)
+          {
+            Console.WriteLine("Ha, you fucking busted");
+            Console.WriteLine(sum);
+            sequence = 5;
+          }
+
+        }
+
+        else
+        {
+
+        Console.WriteLine("Please say S for Stay or H for Hit");
+        }
+
+      }
+      while(sequence <= 4);
+    }
+  }
+}    
