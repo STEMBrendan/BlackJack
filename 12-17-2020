@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BlackjackMain
+{
+  public enum Suit
+  {
+    Hearts = 1 ,
+    Spades = 2,
+    Clubs = 3,
+    Diamonds = 4
+  }
+
+  public enum Card
+  {
+    //Values must be +1'd in order to align with enum value system
+    Ace = 0,
+    Two = 1,
+    Three = 2,
+    Four = 3,
+    Five = 4,
+    Six = 5,
+    Seven = 6,
+    Eight = 7,
+    Nine = 8,
+    Ten = 9,
+    Jack = 10,
+    Queen = 11,
+    King = 12
+  }
+
+
+  public class Deck
+  {
+    List<string> hand = new List<string>();
+
+    public Suit Suit {get;}
+    public Card Card {get;}
+
+///////////////////////////////////////////////
+    public static void Main(string[] args)
+    {
+      BlackjackMain.Deck deck = new Deck();
+      int sequence = 0;
+      int sum = 0;
+
+      do
+      {
+        string Answer = Console.ReadLine();
+
+        if (Answer == "S" || Answer == "H")
+        {
+          sequence += 1;
+
+          Random rand = new Random();
+
+          BlackjackMain.Card outputCR =
+             ((Card) (rand.Next(Enum.GetNames(typeof (Card)).Length))) ;
+
+          int outputCVR = ((int)(Card)(outputCR) + 1);
+
+          string stringOutputCR = ($"{outputCR}");
+
+          //Required to set the values of the Royal   Cards all to 10
+          if (outputCVR > 10)
+          {
+            do
+            {
+              outputCVR = outputCVR - 1;
+            }
+            while(outputCVR > 10);
+          }
+
+          deck.hand.Add(stringOutputCR);
+
+          sum = sum +  outputCVR;
+
+          deck.hand.ForEach(Console.WriteLine);
+          Console.WriteLine(sum);
+          }
+
+          else
+          {
+          Console.WriteLine("Please say S for Stay or H   for Hit");
+          }
+
+      }
+      while(sequence <= 4);
+    }
+  }
+}
+            
